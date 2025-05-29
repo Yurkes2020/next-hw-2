@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { carService } from "@/app/services/carService";
 
@@ -26,6 +26,11 @@ export default function AddCarPage() {
 		}
 	};
 
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setForm({ ...form, [e.target.name]: e.target.value });
+	};
+
+
 	return (
 		<main className="max-w-md mx-auto p-6">
 			<h1 className="text-2xl font-bold mb-4">Додати автівку</h1>
@@ -36,7 +41,7 @@ export default function AddCarPage() {
 					type="text"
 					placeholder="Бренд"
 					value={form.brand}
-					onChange={(e) => setForm({ ...form, brand: e.target.value })}
+					onChange={handleChange}
 					required
 					pattern="^[a-zA-Zа-яА-ЯёЁіІїЇєЄҐґ]{1,20}$"
 					className="border p-2 rounded w-full"
@@ -45,7 +50,7 @@ export default function AddCarPage() {
 					type="number"
 					placeholder="Ціна"
 					value={form.price}
-					onChange={(e) => setForm({ ...form, price: e.target.value })}
+					onChange={handleChange}
 					required
 					min={0}
 					max={1000000}
@@ -55,7 +60,7 @@ export default function AddCarPage() {
 					type="number"
 					placeholder="Рік"
 					value={form.year}
-					onChange={(e) => setForm({ ...form, year: e.target.value })}
+					onChange={handleChange}
 					required
 					min={1990}
 					max={2024}
